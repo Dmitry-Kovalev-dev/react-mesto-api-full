@@ -1,0 +1,8 @@
+.popup_type_auth {
+  position: relative;
+  transform: none;
+  opacity: 1;
+  cursor: default;
+  height: auto;
+  width: auto;
+}

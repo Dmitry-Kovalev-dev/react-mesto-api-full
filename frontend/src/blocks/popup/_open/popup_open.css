@@ -1,0 +1,5 @@
+.popup_open {
+  transform: scale(1);
+  opacity: 1;
+  transition: transform 0s linear, opacity 0.3s linear;
+}

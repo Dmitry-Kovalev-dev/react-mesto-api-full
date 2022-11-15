@@ -1,0 +1,13 @@
+.popup__title_type_auth {
+  color: white;
+  text-align: center;
+  margin: 20px auto 50px;
+}
+
+@media screen and (max-width: 767px) {
+  .popup__title_type_auth {
+    margin: 0 auto 40px;
+    font-size: 20px;
+    line-height: 1.2;
+  }
+}

@@ -1,0 +1,26 @@
+.photo-feed {
+  max-width: 880px;
+  margin: 0 auto 66px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px 17px;
+}
+
+@media screen and (max-width: 1023px) {
+
+  .photo-feed {
+    max-width: 581px;
+    margin-bottom: 48px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 767px) {
+
+  .photo-feed {
+    max-width: 282px;
+    grid-template-columns: 1fr;
+    row-gap: 20px;
+  }
+}

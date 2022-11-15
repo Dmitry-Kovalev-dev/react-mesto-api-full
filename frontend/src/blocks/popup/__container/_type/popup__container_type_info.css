@@ -1,0 +1,13 @@
+.popup__container_type_info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 767px) {
+  .popup__container_type_info {
+    width: 280px;
+    min-height: 308px;
+  }
+}

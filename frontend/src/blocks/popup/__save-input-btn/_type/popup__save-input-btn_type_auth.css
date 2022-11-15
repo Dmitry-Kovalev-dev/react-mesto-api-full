@@ -1,0 +1,11 @@
+.popup__save-input-btn_type_auth {
+  margin: 216px auto 15px;
+  background-color: #FFF;
+  color: #000;
+}
+
+@media screen and (max-width: 767px) {
+  .popup__save-input-btn_type_auth {
+    margin: 173px auto 20px;
+  }
+}

@@ -1,0 +1,12 @@
+.post__title {
+  max-width: 200px;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 1.21;
+  color: #000;
+  margin: 25px 0 31px 21px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}

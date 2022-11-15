@@ -1,0 +1,6 @@
+.popup__img-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  cursor: default;
+}

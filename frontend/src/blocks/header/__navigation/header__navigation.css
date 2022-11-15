@@ -1,0 +1,10 @@
+.header__navigation {
+  display: flex;
+  margin: 6px 0 0;
+}
+
+@media screen and (max-width: 767px) {
+  .header__navigation {
+    margin: 2px 30px 0 0;
+  }
+}
