@@ -160,7 +160,9 @@ const App = () => {
         history.push('/');
       })
       .catch((err) => {
-        setMessage('');
+        err.then(data => {
+          setMessage(data.message);
+        })
         setInfoTooltipPopupOpen(true);
         setIsRegister(false);
       });
@@ -174,7 +176,9 @@ const App = () => {
         setMessage('Вы успешно зарегистрировались!');
       })
       .catch((err) => {
-        setMessage('');
+        err.then(data => {
+          setMessage(data.message);
+        })
         setIsRegister(false);
       })
       .finally(() => {
@@ -191,7 +195,9 @@ const App = () => {
       })
       .catch((err) => {
         setLoggedIn(false)
-        console.log(err.status);
+        err.then((res) => {
+          console.log(res.message);
+        });
       });
   };
 
