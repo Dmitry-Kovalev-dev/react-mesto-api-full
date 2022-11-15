@@ -151,7 +151,7 @@ const App = () => {
   const [isRegister, setIsRegister] = useState(true); //стейт успешной регистрации
   const [message, setMessage] = useState(''); //стейт сообщения информационного попапа
   const history = useHistory();
-
+  
   const handleLogin = (password, email) => {
     authorization(password, email)
       .then((res) => {
@@ -160,9 +160,7 @@ const App = () => {
         history.push('/');
       })
       .catch((err) => {
-        err.then(data => {
-          setMessage(data.message);
-        })
+        setMessage('');
         setInfoTooltipPopupOpen(true);
         setIsRegister(false);
       });
@@ -176,9 +174,7 @@ const App = () => {
         setMessage('Вы успешно зарегистрировались!');
       })
       .catch((err) => {
-        err.then(data => {
-          setMessage(data.message);
-        })
+        setMessage('');
         setIsRegister(false);
       })
       .finally(() => {
@@ -195,9 +191,7 @@ const App = () => {
       })
       .catch((err) => {
         setLoggedIn(false)
-        err.then((res) => {
-          console.log(res.message);
-        });
+        console.log(err.status);
       });
   };
 
