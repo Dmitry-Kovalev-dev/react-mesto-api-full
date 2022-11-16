@@ -1,3 +1,4 @@
+require('dotenv').config();
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -143,6 +144,8 @@ const login = (req, res, next) => {
           res.cookie('token', token, {
             maxAge: 3600000 * 24 * 7,
             httpOnly: true,
+            sameSite: 'None',
+            secure: true,
           });
           res.send(userData);
         })

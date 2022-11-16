@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
@@ -7,7 +8,6 @@ const { errors } = require('celebrate');
 const errorHandler = require('./middleware/errorHandler');
 const router = require('./routes');
 const { requestLogger, errorLogger } = require('./middleware/logger');
-require('dotenv').config();
 
 const { PORT = 3000 } = process.env;
 const app = express();
