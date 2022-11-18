@@ -19,21 +19,15 @@ import InfoTooltip from './InfoTooltip';
 
 const App = () => {
 
-  const [cards, setCards] = useState([]);
-  const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
-  const [isAddPlacePopupOpen, setAddPlacePopupOpen] = useState(false);
-  const [isEditAvatatPopupOpen, setEditAvatarPopupOpen] = useState(false);
-  const [isDeleteCardPopupOpen, setDeleteCardPopupOpen] = useState(false)
-  const [selectedCard, setSelectedCard] = useState({});
-  const [selectedDeleteCard, setSelectedDeleteCard] = useState({});
-  const [currentUser, setCurrentUser] = useState({});
-
-  const [isLoading, setIsLoading] = useState(false);
-  // const [addPlaceBtnValue, setAddPlaceBtnValue] = useState('Создать');
-  // const [editProfileBtnValue, setEditProfileBtnValue] = useState('Сохранить');
-  // const [editAvatarBtnValue, setEditAvatarBtnValue] = useState('Сохранить');
-  // const [deleteCardBtnValue, setDeleteCardBtnValue] = useState('Да');
-
+  const [cards, setCards] = useState([]); // стейт постов с сервера
+  const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false); // стейт состояния попапа Редактировать профиль
+  const [isAddPlacePopupOpen, setAddPlacePopupOpen] = useState(false); // стейт состояния попапа Добавить пост
+  const [isEditAvatatPopupOpen, setEditAvatarPopupOpen] = useState(false); // стейт состояния попапа Редактировать аватар
+  const [isDeleteCardPopupOpen, setDeleteCardPopupOpen] = useState(false) // стейт состояния попапа Удалить пост
+  const [selectedCard, setSelectedCard] = useState({}); // стейт поста для zoom-popup
+  const [selectedDeleteCard, setSelectedDeleteCard] = useState({}); // стейт поста для удаления 
+  const [currentUser, setCurrentUser] = useState({}); // стейт текущего юзера
+  const [isLoading, setIsLoading] = useState(false); // стейт загрузки
   const [loggedIn, setLoggedIn] = useState(false); //стейт входа в аккаунт
   const [activeUser, setActiveUser] = useState(''); //стейт email-а вошедшего пользователя
   const [isInfoTooltipPopupOpen, setInfoTooltipPopupOpen] = useState(false); // стейт открыти информационного попапа
@@ -54,6 +48,8 @@ const App = () => {
     };
   }, [loggedIn]);
 
+/**    Submit button controllers    */
+
   const handleCardLike = (card) => {
     const isLiked = card.likes.some(id => id === currentUser._id);
     api.setLikeStatus(card._id, isLiked ? 'DELETE' : 'PUT')
@@ -64,7 +60,6 @@ const App = () => {
   };
 
   const handleDeleteCard = () => {
-    //setDeleteCardBtnValue('Удаление...')
     setIsLoading(true);
     api.deleteCard(selectedDeleteCard._id)
       .then(() => {
@@ -73,13 +68,11 @@ const App = () => {
       })
       .catch((err) => console.log(err))
       .finally(() => {
-        //setDeleteCardBtnValue('Да');
         setIsLoading(false);
       });
   };
 
   const handleUpdateUser = ({ name, about }) => {
-    //setEditProfileBtnValue('Сохранение...');
     setIsLoading(true);
     api.editProfile(name, about)
       .then((userData) => {
@@ -88,13 +81,11 @@ const App = () => {
       })
       .catch((err) => console.log(err))
       .finally(() => {
-        //setEditProfileBtnValue('Сохранить')
-        setIsLoading(false)
+        setIsLoading(false);
       });
   };
 
   const handleUpdateAvatar = ({ avatar }) => {
-    //setEditAvatarBtnValue('Сохранение...')
     setIsLoading(true);
     api.editAvatar({ avatar })
       .then((userData) => {
@@ -103,13 +94,11 @@ const App = () => {
       })
       .catch((err) => console.log(err))
       .finally(() => {
-        //setEditAvatarBtnValue('Сохранить');
         setIsLoading(false);
       });
   };
 
   const handleAddPlace = ({ name, link }) => {
-    //setAddPlaceBtnValue('Сохранение...');
     setIsLoading(true);
     api.createCard({ name, link })
       .then((res) => {
@@ -120,10 +109,11 @@ const App = () => {
         console.log(err);
       })
       .finally(() => {
-        //setAddPlaceBtnValue('Создать');
         setIsLoading(false);
       });
   };
+
+ /**    Popup controllers   */
 
   const handleEditProfileClick = () => {
     setEditProfilePopupOpen(true);
@@ -158,11 +148,10 @@ const App = () => {
     setEditAvatarPopupOpen(false);
     setDeleteCardPopupOpen(false);
     setInfoTooltipPopupOpen(false)
-    setSelectedCard({});
+    setTimeout(setSelectedCard({}), 300);
   };
 
-  /**         12th SPRINT             */
-
+  /**   Register and Auth   */
 
   const handleLogin = (password, email) => {
     authorization(password, email)
@@ -268,7 +257,6 @@ const App = () => {
         isOpen={isEditProfilePopupOpen}
         onClose={handleClickClosePopup}
         onUpdateUser={handleUpdateUser}
-        //btnValue={editProfileBtnValue}
         isLoading={isLoading}
       />
 
@@ -276,7 +264,6 @@ const App = () => {
         isOpen={isAddPlacePopupOpen}
         onClose={handleClickClosePopup}
         onAddPlace={handleAddPlace}
-        //btnValue={addPlaceBtnValue}
         isLoading={isLoading}
       />
 
@@ -284,7 +271,6 @@ const App = () => {
         isOpen={isEditAvatatPopupOpen}
         onClose={handleClickClosePopup}
         onUpdateAvatar={handleUpdateAvatar}
-        //btnValue={editAvatarBtnValue}
         isLoading={isLoading}
       />
 
@@ -292,7 +278,6 @@ const App = () => {
         isOpen={isDeleteCardPopupOpen}
         onClose={handleClickClosePopup}
         cardDelete={handleDeleteCard}
-        //btnValue={deleteCardBtnValue}
         isLoading={isLoading}
       />
 

@@ -1,19 +1,21 @@
 import { apiConfig } from "./constants";
 const { baseUrl } = apiConfig;
 
+const headers = {
+  "Content-Type": 'application/json',
+};
+
 const checkResponse = (res) => {
   if (res.ok) {
     return res.json();
   }
-  return Promise.reject(res);
+  return Promise.reject(res.json());
 };
 
 export const register = (password, email) => {
   return fetch(`${baseUrl}/signup`, {
     method: 'POST',
-    headers: {
-      "Content-Type": 'application/json',
-    },
+    headers: headers,
     body: JSON.stringify({ password, email })
   })
     .then(checkResponse)
@@ -22,9 +24,7 @@ export const register = (password, email) => {
 export const authorization = (password, email) => {
   return fetch(`${baseUrl}/signin`, {
     method: 'POST',
-    headers: {
-      "Content-Type": 'application/json',
-    },
+    headers: headers,
     body: JSON.stringify({ password, email }),
     credentials: 'include',
   })
@@ -33,9 +33,7 @@ export const authorization = (password, email) => {
 
 export const checkToken = () => {
   return fetch(`${baseUrl}/users/me`, {
-    headers: {
-      "Content-Type": 'application/json',
-    },
+    headers: headers,
     credentials: 'include',
   })
     .then(checkResponse)
@@ -43,9 +41,7 @@ export const checkToken = () => {
 
 export const signOut = () => {
   return fetch(`${baseUrl}/signout`, {
-    headers: {
-      "Content-Type": 'application/json',
-    },
+    headers: headers,
     credentials: 'include',
   })
     .then(checkResponse);
