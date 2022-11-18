@@ -27,11 +27,19 @@ const App = () => {
   const [selectedCard, setSelectedCard] = useState({});
   const [selectedDeleteCard, setSelectedDeleteCard] = useState({});
   const [currentUser, setCurrentUser] = useState({});
+
+  const [isLoading, setisLoading] = useState(true)
   const [addPlaceBtnValue, setAddPlaceBtnValue] = useState('Создать');
   const [editProfileBtnValue, setEditProfileBtnValue] = useState('Сохранить');
   const [editAvatarBtnValue, setEditAvatarBtnValue] = useState('Сохранить');
   const [deleteCardBtnValue, setDeleteCardBtnValue] = useState('Да');
+
   const [loggedIn, setLoggedIn] = useState(false); //стейт входа в аккаунт
+  const [activeUser, setActiveUser] = useState(''); //стейт email-а вошедшего пользователя
+  const [isInfoTooltipPopupOpen, setInfoTooltipPopupOpen] = useState(false); // стейт открыти информационного попапа
+  const [isRegister, setIsRegister] = useState(true); //стейт успешной регистрации
+  const [message, setMessage] = useState(''); //стейт сообщения информационного попапа
+  const history = useHistory();
 
   useEffect(() => {
     if (loggedIn) {
@@ -56,7 +64,8 @@ const App = () => {
   };
 
   const handleDeleteCard = () => {
-    setDeleteCardBtnValue('Удаление...')
+    //setDeleteCardBtnValue('Удаление...')
+    setisLoading(true);
     api.deleteCard(selectedDeleteCard._id)
       .then(() => {
         setCards((cards) => cards.filter(c => c._id !== selectedDeleteCard._id));
@@ -64,7 +73,8 @@ const App = () => {
       })
       .catch((err) => console.log(err))
       .finally(() => {
-        setDeleteCardBtnValue('Да');
+        //setDeleteCardBtnValue('Да');
+        setisLoading(false);
       });
   };
 
@@ -146,12 +156,8 @@ const App = () => {
   };
 
   /**         12th SPRINT             */
-  const [activeUser, setActiveUser] = useState(''); //стейт email-а вошедшего пользователя
-  const [isInfoTooltipPopupOpen, setInfoTooltipPopupOpen] = useState(false); // стейт открыти информационного попапа
-  const [isRegister, setIsRegister] = useState(true); //стейт успешной регистрации
-  const [message, setMessage] = useState(''); //стейт сообщения информационного попапа
-  const history = useHistory();
-  
+
+
   const handleLogin = (password, email) => {
     authorization(password, email)
       .then((res) => {
@@ -277,7 +283,8 @@ const App = () => {
         isOpen={isDeleteCardPopupOpen}
         onClose={handleClickClosePopup}
         cardDelete={handleDeleteCard}
-        btnValue={deleteCardBtnValue}
+        //btnValue={deleteCardBtnValue}
+        isLoading={isLoading}
       />
 
       <ImagePopup
