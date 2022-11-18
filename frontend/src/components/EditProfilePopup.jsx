@@ -4,7 +4,7 @@ import PopupWithForm from "./PopupWithForm";
 
 
 const EditProfilePopup = (props) => {
-  const { isOpen, onClose, onUpdateUser, btnValue } = props;
+  const { isOpen, onClose, onUpdateUser, isLoading } = props;
   const currentUser = useContext(CurrentUserContext);
 
   const [userName, setName] = useState('');
@@ -38,7 +38,7 @@ const EditProfilePopup = (props) => {
     <PopupWithForm
       title={'Редактировать профиль'}
       name={'edit'}
-      btnValue={btnValue}
+      btnValue={isLoading ? 'Сохранение...' : 'Сохранить'}
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleEditProfileSubmit}

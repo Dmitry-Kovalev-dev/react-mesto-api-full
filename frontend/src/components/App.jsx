@@ -28,11 +28,11 @@ const App = () => {
   const [selectedDeleteCard, setSelectedDeleteCard] = useState({});
   const [currentUser, setCurrentUser] = useState({});
 
-  const [isLoading, setisLoading] = useState(true)
-  const [addPlaceBtnValue, setAddPlaceBtnValue] = useState('Создать');
-  const [editProfileBtnValue, setEditProfileBtnValue] = useState('Сохранить');
-  const [editAvatarBtnValue, setEditAvatarBtnValue] = useState('Сохранить');
-  const [deleteCardBtnValue, setDeleteCardBtnValue] = useState('Да');
+  const [isLoading, setIsLoading] = useState(false);
+  // const [addPlaceBtnValue, setAddPlaceBtnValue] = useState('Создать');
+  // const [editProfileBtnValue, setEditProfileBtnValue] = useState('Сохранить');
+  // const [editAvatarBtnValue, setEditAvatarBtnValue] = useState('Сохранить');
+  // const [deleteCardBtnValue, setDeleteCardBtnValue] = useState('Да');
 
   const [loggedIn, setLoggedIn] = useState(false); //стейт входа в аккаунт
   const [activeUser, setActiveUser] = useState(''); //стейт email-а вошедшего пользователя
@@ -65,7 +65,7 @@ const App = () => {
 
   const handleDeleteCard = () => {
     //setDeleteCardBtnValue('Удаление...')
-    setisLoading(true);
+    setIsLoading(true);
     api.deleteCard(selectedDeleteCard._id)
       .then(() => {
         setCards((cards) => cards.filter(c => c._id !== selectedDeleteCard._id));
@@ -74,12 +74,13 @@ const App = () => {
       .catch((err) => console.log(err))
       .finally(() => {
         //setDeleteCardBtnValue('Да');
-        setisLoading(false);
+        setIsLoading(false);
       });
   };
 
   const handleUpdateUser = ({ name, about }) => {
-    setEditProfileBtnValue('Сохранение...');
+    //setEditProfileBtnValue('Сохранение...');
+    setIsLoading(true);
     api.editProfile(name, about)
       .then((userData) => {
         setCurrentUser(userData);
@@ -87,12 +88,14 @@ const App = () => {
       })
       .catch((err) => console.log(err))
       .finally(() => {
-        setEditProfileBtnValue('Сохранить')
+        //setEditProfileBtnValue('Сохранить')
+        setIsLoading(false)
       });
   };
 
   const handleUpdateAvatar = ({ avatar }) => {
-    setEditAvatarBtnValue('Сохранение...')
+    //setEditAvatarBtnValue('Сохранение...')
+    setIsLoading(true);
     api.editAvatar({ avatar })
       .then((userData) => {
         setCurrentUser(userData);
@@ -100,12 +103,14 @@ const App = () => {
       })
       .catch((err) => console.log(err))
       .finally(() => {
-        setEditAvatarBtnValue('Сохранить');
+        //setEditAvatarBtnValue('Сохранить');
+        setIsLoading(false);
       });
   };
 
   const handleAddPlace = ({ name, link }) => {
-    setAddPlaceBtnValue('Сохранение...');
+    //setAddPlaceBtnValue('Сохранение...');
+    setIsLoading(true);
     api.createCard({ name, link })
       .then((res) => {
         setCards([res, ...cards]);
@@ -115,7 +120,8 @@ const App = () => {
         console.log(err);
       })
       .finally(() => {
-        setAddPlaceBtnValue('Создать');
+        //setAddPlaceBtnValue('Создать');
+        setIsLoading(false);
       });
   };
 
@@ -262,21 +268,24 @@ const App = () => {
         isOpen={isEditProfilePopupOpen}
         onClose={handleClickClosePopup}
         onUpdateUser={handleUpdateUser}
-        btnValue={editProfileBtnValue}
+        //btnValue={editProfileBtnValue}
+        isLoading={isLoading}
       />
 
       <AddPlacePopup
         isOpen={isAddPlacePopupOpen}
         onClose={handleClickClosePopup}
         onAddPlace={handleAddPlace}
-        btnValue={addPlaceBtnValue}
+        //btnValue={addPlaceBtnValue}
+        isLoading={isLoading}
       />
 
       <EditAvatarPopup
         isOpen={isEditAvatatPopupOpen}
         onClose={handleClickClosePopup}
         onUpdateAvatar={handleUpdateAvatar}
-        btnValue={editAvatarBtnValue}
+        //btnValue={editAvatarBtnValue}
+        isLoading={isLoading}
       />
 
       <DeleteCardPopup

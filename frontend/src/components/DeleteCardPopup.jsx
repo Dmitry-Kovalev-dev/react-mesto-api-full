@@ -1,7 +1,7 @@
 import PopupWithForm from "./PopupWithForm";
 
 const DeleteCardPopup = (props) => {
-  const {isOpen, onClose, cardDelete, /*btnValue*/isLoading} = props;
+  const {isOpen, onClose, cardDelete, isLoading} = props;
 
   const handleDeleteCardSubmit = (evt) => {
     evt.preventDefault();

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import PopupWithForm from "./PopupWithForm"
 
 const AddPlacePopup = (props) => {
-  const { isOpen, onClose, onAddPlace, btnValue } = props;
+  const { isOpen, onClose, onAddPlace, isLoading } = props;
 
   const [name, setName] = useState('');
   const [link, setLink] = useState('');
@@ -33,7 +33,7 @@ const AddPlacePopup = (props) => {
     <PopupWithForm
       title={'Новое место'}
       name={'add'}
-      btnValue={btnValue}
+      btnValue={isLoading ? 'Сохранение...' : 'Сохранить'}
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleAddPlaceSubmit}
